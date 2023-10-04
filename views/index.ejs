@@ -1,0 +1,45 @@
+<%- include("partials/header.ejs") %>
+
+<div class="heading">
+  <h1><%= day %></h1>
+</div>
+
+<div class="box">
+  <% itemsList.forEach((item) => { %>
+
+  <div class="item">
+    <form class="checkitem" action="/checked" method="post">
+      <input
+        type="checkbox"
+        name="checkbox"
+        value="<%=item._id%>"
+        onChange="this.form.submit()"
+        <%=item.check%>
+      />
+      <p><%= item.name %></p>
+    </form>
+
+    <form action="/delete" method="post">
+      <button
+        class="delete"
+        type="submit"
+        name="trashbin"
+        value="<%=item._id%>"
+      >
+        <img src="/delete.png" alt="del" />
+      </button>
+    </form>
+  </div>
+  <% }); %>
+
+  <form class="item" action="/" method="post">
+    <input
+      type="text"
+      name="newItem"
+      placeholder="Enter Task ..."
+      autocomplete="off"
+    />
+    <button class="add" type="submit" name="button">+</button>
+  </form>
+</div>
+<%- include("partials/footer.ejs") %>
